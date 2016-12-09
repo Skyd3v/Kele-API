@@ -34,11 +34,24 @@ class Kele
     response = self.class.post('/messages',
                               headers: { "authorization" => @auth_token },
                               body: {
-                                "user_id": user_id,
-                                "recipient_id": recipient_id,
-                                "subject": subject,
-                                "stripped-text": stripped_text
+
+                                recipient_id: recipient_id,
+                                subject: subject,
+                                'stripped-text': stripped_text
                               })
     JSON.parse(response.body)
   end
+
+  def create_submission(assignment_branch, assignment_commit_link, checkpoint_id, comment, enrollment_id)
+   response = self.class.post('/checkpoint_submissions',
+                             headers: { "authorization" => @auth_token },
+                             body: {
+                               "assignment_branch": assignment_branch,
+                               "assignment_commit_link": assignment_commit_link,
+                               "checkpoint_id": checkpoint_id,
+                               "comment": comment,
+                               "enrollment_id": enrollment_id
+                             })
+   JSON.parse(response.body)
+
 end
